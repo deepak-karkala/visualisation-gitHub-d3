@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Visualisation</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="blog.css" rel="stylesheet">
+    <link rel="stylesheet" href="chart1.css">
+    <link rel="stylesheet" href="chart2.css">
+    <link rel="stylesheet" href="chart3a.css">
+    <link rel="stylesheet" href="chart3b.css">
+    <link rel="stylesheet" href="chart3c.css">
+    <link rel="stylesheet" href="chart3d.css">
+    <link rel="stylesheet" href="chart3e.css">
+  </head>
+
+  <body>
+
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <center><a class="blog-nav-item" href="#">Visualisation using d3.js</a></center>
+        </nav>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="blog-header">
+        <center>
+        <h3 class="blog-title">Visualisation of GitHub repositories using d3.js</h3>
+        <!--<p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>-->
+      </center>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-11 blog-main">
+
+          <div class="blog-post">
+            <script src="http://d3js.org/d3.v3.min.js"></script>
+
+            <p>
+              This article aims to study the most popular GitHub repositories over the last five years. The entire GitHub archive is available as a public dataset on Google BigQuery. <a href="https://www.githubarchive.org/">(https://www.githubarchive.org/)</a> The data for this work was obtained using SQL queries on this dataset. The dataset contains details such as repository name, author etc and also provides more than 20 event types including <em>CreateEvent</em>,<em>   CommitCommentEvent</em>, <em>  FollowEvent</em>, <em> PushEvent</em>, <em> IssuesEvent</em>, <em> PullRequestEvent</em>, etc.
+              In order to create the plots, d3.js is used. d3 is a JavaScript library for visualising data using web standards. d3 is one of the most popular visualising techniques and uses SVG, Canvas and HTML.
+            </p>
+
+            <p>
+              The criteria to determine the most popular repository is clearly not straightforward with a number of different measures available. In this work, let us consider the number of forks as a measure of the popularity of repositories. This is certainly not the best method, but will hopefully give us some insight into the most popular repositories. The data considered in this work spans over the last five years.
+            </p>
+
+            <p>
+              A sample SQL query to extract the 100 repositories with most number of forks during the year 2015 is as follows. 
+              <pre><code>SELECT repo.name, COUNT(*) AS num FROM  [githubarchive:year.2015]
+WHERE type = 'ForkEvent'
+GROUP BY repo.name
+ORDER BY num DESC LIMIT 100;
+              </code></pre>
+            </p>
+
+            <h2>Increase in GitHub usage</h2>
+            <p>This section will aim to study the popularity of GitHub itself. The number of forks is calculated for all the repositories. The repositories are then arranged in the order of the most number of forks. The total number of forks for 100 most popular repositories is then plotted for each year between 2011 and 2015 as shown in the following figure.
+            </p>
+            <svg class="chart2"></svg>
+            <script src="chart2.js"></script>
+            <p>It is evident from the figure that over the years, the total number of forks has increased thereby suggesting the increase in popularity of GitHub for open source development. 
+            </p>
+          </div><!-- /.blog-post -->
+
+
+          <div class="blog-post">
+            <h2>Most popular repositories over the last 5 years</h2>
+            <p> 
+              This section explores the most popular repositories over the last five years in terms of the number of forks. The following plot shows five repositories with the most number of forks. The plot for each year has been normalised relative to the repository with the maximum number of forks.
+            </p>
+            
+            <svg class="chart3a"></svg>
+            <script src="chart3a.js"></script>
+
+            <svg class="chart3b"></svg>
+            <script src="chart3b.js"></script>
+
+            <svg class="chart3c"></svg>
+            <script src="chart3c.js"></script>
+
+            <svg class="chart3d"></svg>
+            <script src="chart3d.js"></script>
+
+            <svg class="chart3e"></svg>
+            <script src="chart3e.js"></script>
+
+            <p>
+              It can be seen that while few repositories feature across most of the previous 5 years, there are also a number of other repositories which are popular only for one or two years. This plot also helps us to visualise the rise and fall of different open source technologies over the recent years. 
+            </p>
+            <p>
+              <em>Spoon-Knife </em> which is a repository which demonstrates how to fork a GitHub repository features in the top 5 for most of the years. It is also evident from the plot that repositories like <em>rails </em> and <em>html5-boilerplate </em> which featured in top 5 during 2011 and 2012 has since then decreased in popularity. Similarly the rise of <em>angular.js </em> is also very clear starting from the year 2013 and has consistently featured in top 5 since then. It is also interesting to note that a repository like <em>2048 </em> (a smartphone game) featuring in the top 5 for the year 2014, when the game reached its maximum popularity.
+            </p>
+
+          </div><!-- /.blog-post -->
+          
+
+
+          <div class="blog-post">
+            <h2>10 Most popular repositories of 2015</h2>
+            <p>
+              Finally as an extension of the previous plot, let us look at the 20 most popular repositories for the year 2015. 
+            </p>
+            <svg class="chart1"></svg>
+            <script src="chart1.js"></script>
+            <p>
+              It is interesting to note that the number of forks for the most popular repository of 2015 is nearly as high as the total number of forks for the 100 most popular repositories of 2011. As noted earlier, this suggests an huge increase in the usage of GitHub for developing open source technologies. While <em>bootstrap </em> (a CSS framework by Twitter) and <em>angular.js </em> (a Front end javascript framework) seems to be the most popular repositories, it is worth noting the rise of other repositories such as <em>spark </em>, <em> tensorflow </em> and <em> react </em>. As expected technologies related to deep learning, big-data analysis and front end javascript frameworks are the most popular repositories on GitHub for the year 2015.
+            </p>
+          </div><!-- /.blog-post -->
+          
+
+         <div>
+          <h3>References</h3>
+          <ul>
+            <li>The GitHub data was obtained from <a href="https://www.githubarchive.org/">https://www.githubarchive.org/</a></li>
+            <li>The code for generating the plots were based on the following article: <a href="http://bl.ocks.org/erikvullings/51cc5332439939f1f292">http://bl.ocks.org/erikvullings/51cc5332439939f1f292</a></li>
+            <li>The template of this webpage is based on one of the custom components of Bootstrap <a href="http://getbootstrap.com/examples/blog/">http://getbootstrap.com/examples/blog/</a></li>
+          </ul>
+         </div>
+
+         <p>
+          <br>
+          The code to generate the above plots is in this GitHub repository <a href="https://github.com/deepak-karkala">https://github.com/deepak-karkala</a>
+         </p>
+
+        </div><!-- /.blog-main -->
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+
+    <footer class="blog-footer">
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
